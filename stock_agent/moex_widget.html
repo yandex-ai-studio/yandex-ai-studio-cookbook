@@ -1,0 +1,814 @@
+<div class="moex-monitor-widget" id="moex-monitor-widget">
+  <style>
+    .moex-monitor-widget * {
+      box-sizing: border-box;
+    }
+
+    .moex-monitor-widget {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 16px;
+      border-radius: 14px;
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+      color: #fff;
+    }
+
+    .row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .panel {
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 12px;
+      padding: 12px;
+      margin-bottom: 12px;
+    }
+
+    .titlebar {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .brand {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
+      min-width: 0;
+    }
+
+    .brandLogo {
+      width: 80px;
+      height: auto;
+      border-radius: 0;
+      object-fit: contain;
+      background: transparent;
+      padding: 0;
+      flex: 0 0 auto;
+    }
+
+    .h1 {
+      font-weight: 900;
+      font-size: 18px;
+      line-height: 1.1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .sub {
+      opacity: .85;
+      font-size: 12px;
+      line-height: 1.1;
+      text-align: right;
+    }
+
+    input.tickerInput {
+      width: 260px;
+      padding: 9px 10px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      background: rgba(255, 255, 255, 0.10);
+      color: #fff;
+      outline: none;
+    }
+
+    input.tickerInput::placeholder {
+      color: rgba(255, 255, 255, 0.75);
+    }
+
+    button.btn {
+      padding: 9px 12px;
+      border-radius: 10px;
+      border: 0;
+      cursor: pointer;
+      font-weight: 700;
+      color: #fff;
+      background: rgba(0, 0, 0, 0.18);
+      transition: transform .15s ease, opacity .15s ease;
+    }
+
+    button.btn:hover {
+      transform: translateY(-1px);
+    }
+
+    button.btn:disabled {
+      opacity: .55;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* NEW: переключатель S3 */
+    .toggleS3 {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      background: rgba(255, 255, 255, 0.10);
+      font-size: 12px;
+      user-select: none;
+    }
+
+    .toggleS3 input {
+      accent-color: #69e870;
+    }
+
+    .chips {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 10px 0 0;
+    }
+
+    .chip {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      background: rgba(255, 255, 255, 0.10);
+      font-size: 12px;
+    }
+
+    .chip button {
+      border: 0;
+      background: transparent;
+      color: #fff;
+      cursor: pointer;
+      font-size: 14px;
+      line-height: 1;
+    }
+
+    .status {
+      margin-top: 10px;
+      text-align: center;
+      font-size: 12px;
+      opacity: .9;
+      min-height: 16px;
+    }
+
+    .error {
+      display: none;
+      white-space: pre-wrap;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      background: rgba(255, 90, 90, 0.18);
+      margin: 10px 0 0;
+      font-size: 12px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      text-align: center;
+    }
+
+    .stat {
+      background: rgba(255, 255, 255, 0.10);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 12px;
+      padding: 10px;
+    }
+
+    .stat .v {
+      font-weight: 800;
+      font-size: 18px;
+    }
+
+    .stat .l {
+      opacity: .9;
+      font-size: 12px;
+    }
+
+    .card {
+      background: #fff;
+      color: #222;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 12px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+    }
+
+    .cardHead {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #fff;
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .cardBody {
+      padding: 12px;
+    }
+
+    .meta {
+      margin: 6px 0 10px;
+      font-size: 12px;
+      color: #666;
+      line-height: 1.35;
+    }
+
+    .item {
+      padding: 10px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .item:last-child {
+      border-bottom: 0;
+    }
+
+    .itemTitle {
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .summary {
+      color: #1f2937;
+      font-size: 14px;
+      line-height: 1.55;
+      margin-bottom: 10px;
+      white-space: normal;
+    }
+
+    .summary h1,
+    .summary h2,
+    .summary h3 {
+      margin: 10px 0 6px;
+      color: #111827;
+    }
+
+    .summary p {
+      margin: 6px 0;
+    }
+
+    .summary ul,
+    .summary ol {
+      margin: 6px 0 6px 18px;
+    }
+
+    .summary li {
+      margin: 2px 0;
+    }
+
+    .summary code {
+      background: #f3f4f6;
+      padding: 1px 6px;
+      border-radius: 6px;
+    }
+
+    .summary a {
+      color: #0b7bfb;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .summary a:hover {
+      text-decoration: underline;
+    }
+
+
+    a.link {
+      color: #0b7bfb;
+      font-weight: 700;
+      text-decoration: none;
+      font-size: 13px;
+    }
+
+    a.link:hover {
+      text-decoration: underline;
+    }
+
+    .influence {
+      margin-top: 8px;
+      font-size: 12px;
+      color: #555;
+      line-height: 1.35;
+      background: #fafafa;
+      border: 1px solid #eee;
+      border-radius: 10px;
+      padding: 8px 10px;
+    }
+
+    .empty {
+      text-align: center;
+      color: rgba(255, 255, 255, 0.92);
+      padding: 18px 8px;
+    }
+  </style>
+
+  <div class="panel">
+    <div class="titlebar">
+      <div class="brand">
+        <img class="brandLogo" alt="Yandex Cloud"
+          src="images/Yandex_Cloud_logo.png"
+          loading="lazy" />
+        <div class="h1">MOEX News Monitor</div>
+      </div>
+
+      <div class="sub">JS → Colab callback</div>
+    </div>
+
+    <div class="row">
+      <input class="tickerInput" type="text" placeholder="Тикеры: SBER, YDEX" maxlength="80" />
+      <button class="btn btnAdd" type="button">Добавить</button>
+      <button class="btn btnLoad" type="button" style="background:#00ce34e1;">Найти новость</button>
+      <button class="btn btnClear" type="button" style="background:#c62828;">Очистить</button>
+
+      <!-- NEW: Save to S3 toggle -->
+      <label class="toggleS3" title="Если включено — Python callback после агента сохранит результат в S3">
+        <input class="saveS3" type="checkbox" />
+        Save to S3
+      </label>
+    </div>
+
+    <div class="chips"></div>
+    <div class="status"></div>
+    <div class="error"></div>
+  </div>
+
+  <div class="panel stats"></div>
+  <div class="news"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+<script>
+  (function () {
+    "use strict";
+
+    // ДОЛЖНО совпадать с output.register_callback("...", moexagentcallback)
+    const CALLBACKNAME = "moexagentcallback";
+
+    const root = document.getElementById("moex-monitor-widget");
+    const input = root.querySelector(".tickerInput");
+    const btnAdd = root.querySelector(".btnAdd");
+    const btnLoad = root.querySelector(".btnLoad");
+    const btnClear = root.querySelector(".btnClear");
+    const saveS3El = root.querySelector(".saveS3");
+
+    const chipsEl = root.querySelector(".chips");
+    const statsEl = root.querySelector(".stats");
+    const newsEl = root.querySelector(".news");
+    const statusEl = root.querySelector(".status");
+    const errorEl = root.querySelector(".error");
+
+    let selectedTickers = [];
+    let resultsByTicker = {}; // { "SBER": resultDict, ... }
+
+    function escapeHtml(s) {
+      return String(s ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+    }
+
+    function setError(msg) {
+      if (!msg) {
+        errorEl.style.display = "none";
+        errorEl.textContent = "";
+        return;
+      }
+      errorEl.style.display = "block";
+      errorEl.textContent = String(msg);
+    }
+
+    function setStatus(msg) {
+      statusEl.textContent = msg ? String(msg) : "";
+    }
+
+    function ensureColabBridge() {
+      return (window.google && google.colab && google.colab.kernel && typeof google.colab.kernel.invokeFunction === "function");
+    }
+
+    // Конвертирует Python repr в JSON строку
+    function pythonReprToJson(s) {
+      // Заменяем Python-специфичные значения на JSON-эквиваленты
+      // None -> null, True -> true, False -> false
+      // Одинарные кавычки -> двойные (аккуратно)
+      
+      let result = "";
+      let i = 0;
+      let inString = false;
+      let stringChar = null;
+      
+      while (i < s.length) {
+        const ch = s[i];
+        
+        // Обработка строк
+        if (!inString && (ch === '"' || ch === "'")) {
+          inString = true;
+          stringChar = ch;
+          result += '"'; // всегда используем двойные кавычки
+          i++;
+          continue;
+        }
+        
+        if (inString && ch === stringChar && s[i - 1] !== '\\') {
+          inString = false;
+          stringChar = null;
+          result += '"';
+          i++;
+          continue;
+        }
+        
+        if (inString) {
+          // Внутри строки - экранируем двойные кавычки если были одинарные
+          if (ch === '"' && stringChar === "'") {
+            result += '\\"';
+          } else {
+            result += ch;
+          }
+          i++;
+          continue;
+        }
+        
+        // Вне строки - заменяем Python значения
+        if (s.slice(i, i + 4) === "None") {
+          result += "null";
+          i += 4;
+          continue;
+        }
+        if (s.slice(i, i + 4) === "True") {
+          result += "true";
+          i += 4;
+          continue;
+        }
+        if (s.slice(i, i + 5) === "False") {
+          result += "false";
+          i += 5;
+          continue;
+        }
+        
+        result += ch;
+        i++;
+      }
+      
+      return result;
+    }
+
+    // FIX: устойчивый парсинг text/plain (Colab иногда возвращает python-repr строку)
+    function parseColabInvokeResult(res) {
+      const aj = res && res.data && res.data["application/json"];
+      if (aj !== undefined && aj !== null) {
+        if (typeof aj === "string") return JSON.parse(aj);
+        return aj;
+      }
+
+      const tp = res && res.data && res.data["text/plain"];
+      if (tp !== undefined && tp !== null) {
+        if (typeof tp !== "string") return tp;
+
+        let s = tp.trim();
+
+        // 1) снимаем лидирующую/хвостовую кавычку по отдельности
+        if (s.startsWith("\'") || s.startsWith('"')) s = s.slice(1);
+        if (s.endsWith("\'") || s.endsWith('"')) s = s.slice(0, -1);
+
+        // 2) вырезаем JSON-ядро между первой {/[ и последней }/]
+        const firstObj = s.indexOf("{");
+        const firstArr = s.indexOf("[");
+        let start = -1;
+        if (firstObj === -1) start = firstArr;
+        else if (firstArr === -1) start = firstObj;
+        else start = Math.min(firstObj, firstArr);
+
+        const lastObj = s.lastIndexOf("}");
+        const lastArr = s.lastIndexOf("]");
+        let end = Math.max(lastObj, lastArr);
+
+        if (start !== -1 && end !== -1 && end > start) {
+          s = s.slice(start, end + 1);
+        }
+
+        // Деэкранирование Python repr: \\" -> \", \\n -> \n, и т.д.
+        function fixPythonReprEscapes(str) {
+          return str
+            .replace(/\\\\"/g, '\\"')      // \\" -> \"
+            .replace(/\\\\n/g, '\\n')      // \\n -> \n
+            .replace(/\\\\r/g, '\\r')      // \\r -> \r
+            .replace(/\\\\t/g, '\\t')      // \\t -> \t
+            .replace(/\\\\\\\\/g, '\\\\'); // \\\\ -> \\
+        }
+
+        // Серия попыток парсинга с разными преобразованиями
+        const attempts = [
+          () => JSON.parse(s),
+          // Главная попытка: исправление двойного экранирования из Python repr
+          () => JSON.parse(fixPythonReprEscapes(s)),
+          // Попытка с заменой реальных newlines на escape sequence
+          () => JSON.parse(s.replace(/\n/g, '\\n').replace(/\r/g, '\\r').replace(/\t/g, '\\t')),
+          // Попытка с Python repr -> JSON конвертацией (для dict repr с одинарными кавычками)
+          () => JSON.parse(pythonReprToJson(s)),
+          // Комбинация
+          () => JSON.parse(fixPythonReprEscapes(pythonReprToJson(s))),
+        ];
+
+        for (const attempt of attempts) {
+          try {
+            return attempt();
+          } catch (e) {
+            // продолжаем к следующей попытке
+          }
+        }
+
+        // Все попытки не удались - выводим детальную диагностику
+        let parseError = "";
+        try { JSON.parse(s); } catch(e) { parseError = e.message; }
+        
+        // Находим позицию ошибки из сообщения (обычно "at position X")
+        const posMatch = parseError.match(/position\s+(\d+)/i);
+        const errorPos = posMatch ? parseInt(posMatch[1], 10) : -1;
+        const errorContext = errorPos >= 0 
+          ? `\n\nERROR_CONTEXT: ...${s.slice(Math.max(0, errorPos - 50), errorPos)}[HERE]${s.slice(errorPos, errorPos + 50)}...`
+          : "";
+        
+        throw new Error(
+          "Callback вернул не-JSON в text/plain.\n" +
+          "Parse error: " + parseError + errorContext + "\n\n" +
+          "HEAD(200): " + tp.slice(0, 200) + "\n\n" +
+          "TAIL(200): " + tp.slice(Math.max(0, tp.length - 200))
+        );
+      }
+
+      if (res && typeof res === "object") return res;
+      throw new Error("Пустой ответ от invokeFunction");
+    }
+
+    function normalizeTickersFromInput(raw) {
+      return String(raw || "")
+        .toUpperCase()
+        .split(/[,\s;]+/g)
+        .map(x => x.trim())
+        .filter(Boolean);
+    }
+
+    function addTicker() {
+      const parts = normalizeTickersFromInput(input.value);
+      if (!parts.length) return;
+
+      for (const t of parts) {
+        if (!selectedTickers.includes(t)) selectedTickers.push(t);
+      }
+
+      input.value = "";
+      setError(null);
+      render();
+    }
+
+    function removeTicker(t) {
+      selectedTickers = selectedTickers.filter(x => x !== t);
+      delete resultsByTicker[t];
+      render();
+    }
+
+    function clearAll() {
+      selectedTickers = [];
+      resultsByTicker = {};
+      setError(null);
+      setStatus("");
+      render();
+    }
+
+    function getResultForTicker(t) {
+      return resultsByTicker[t] || null;
+    }
+
+    function getDigestForTicker(t) {
+      const r = getResultForTicker(t);
+      // r.digest — это объект StockDigest из Python
+      // r.digest.news_digest — это наша новая сводка
+      return r && r.digest && r.digest.news_digest ? r.digest.news_digest : null;
+    }
+
+    function updateStats() {
+      const tickersCount = selectedTickers.length;
+      // Считаем, сколько сводок загружено (не null)
+      const digestsCount = selectedTickers.reduce((s, t) => s + (getDigestForTicker(t) ? 1 : 0), 0);
+
+      statsEl.innerHTML = `
+        <div class="stat"><div class="v">${tickersCount}</div><div class="l">Тикеров</div></div>
+        <div class="stat"><div class="v">${digestsCount}</div><div class="l">Сводок</div></div>
+        <div class="stat"><div class="v">${new Date().toLocaleTimeString('ru-RU')}</div><div class="l">Обновлено</div></div>
+      `;
+    }
+
+
+    function renderChips() {
+      chipsEl.innerHTML = selectedTickers.map(t => `
+      <span class="chip">
+        ${escapeHtml(t)}
+        <button type="button" title="Удалить" data-t="${escapeHtml(t)}">×</button>
+      </span>
+    `).join("");
+
+      chipsEl.querySelectorAll("button[data-t]").forEach(btn => {
+        btn.addEventListener("click", () => removeTicker(btn.getAttribute("data-t")));
+      });
+    }
+
+    // NEW: аккуратно достаём объект S3 из разных схем
+    function getS3Obj(result) {
+      if (!result || typeof result !== "object") return null;
+      return (
+        result.s3save ??
+        result.s3_save ??
+        result.s3Save ??
+        result.s3 ??
+        null
+      );
+    }
+
+    // NEW: собираем meta строки, не завязываясь на конкретные ключи
+    function pickS3MetaLines(s3) {
+      if (!s3 || typeof s3 !== "object") return [];
+
+      const lines = [];
+
+      const bucket = s3.bucket ?? s3.bucket_name ?? null;
+      const key = s3.s3_key ?? s3.s3key ?? s3.key ?? s3.object_key ?? s3.path ?? null;
+      const url = s3.url ?? s3.object_url ?? null;
+      const ts = s3.timestamp ?? s3.created_at ?? s3.time ?? null;
+
+      if (bucket) lines.push(`bucket: ${escapeHtml(bucket)}`);
+      if (key) lines.push(`key: ${escapeHtml(key)}`);
+      if (url) lines.push(`url: ${escapeHtml(url)}`);
+      if (ts) lines.push(`time: ${escapeHtml(ts)}`);
+
+      if (typeof s3.success !== "undefined") lines.push(`success: ${escapeHtml(String(s3.success))}`);
+      if (typeof s3.size !== "undefined") lines.push(`size: ${escapeHtml(String(s3.size))}`);
+      if (typeof s3.articles_saved !== "undefined") lines.push(`articles_saved: ${escapeHtml(String(s3.articles_saved))}`);
+
+      return lines;
+    }
+
+    function renderMarkdown(md) {
+      let src = String(md ?? "");
+      if (!src.trim()) return "";
+
+      src = src.replace(/\\n/g, "\n");
+      // marked: markdown -> html
+      const html = marked.parse(src, {
+        gfm: true,
+        breaks: true
+      });
+
+      // Пост-обработка ссылок: target=_blank + rel
+      const tmp = document.createElement("div");
+      tmp.innerHTML = html;
+      tmp.querySelectorAll("a").forEach(a => {
+        a.target = "_blank";
+        a.rel = "noopener noreferrer";
+      });
+      return tmp.innerHTML;
+    }
+
+
+    function renderNews() {
+      if (!selectedTickers.length) {
+        newsEl.innerHTML = `<div class="empty">Добавь тикеры и нажми «Обновить»</div>`;
+        return;
+      }
+
+      let html = "";
+
+      for (const t of selectedTickers) {
+        const r = getResultForTicker(t);
+        const digest = getDigestForTicker(t); // Наш новый объект NewsDigest
+        const s3 = getS3Obj(r);
+
+        // Мета-информация (S3, кол-во найденных статей и т.д.)
+        const meta = [];
+        if (r && typeof r.articles_found !== "undefined") meta.push(`Найдено источников: ${escapeHtml(r.articles_found)}`);
+        meta.push(...pickS3MetaLines(s3));
+        const metaHtml = meta.length ? `<div class="meta">${meta.join("<br/>")}</div>` : "";
+
+        let contentHtml = "";
+
+        if (digest) {
+          // Если сводка есть
+          const inf = digest.influence || {};
+
+          // Рендерим список ссылок
+          const urlsList = (digest.urls || []).map((u, i) =>
+            `<a class="link" href="${escapeHtml(u)}" target="_blank" rel="noopener noreferrer">[${i + 1}] Источник</a>`
+          ).join(" ");
+
+          contentHtml = `
+            <div class="item">
+              <div class="itemTitle">${escapeHtml(digest.title || "")}</div>
+              
+              <!-- Тут важно применить наш фикс для переносов строк из прошлого шага -->
+              <div class="summary">${renderMarkdown(digest.summary)}</div>
+              
+              <div style="margin-top:8px; display:flex; gap:10px; flex-wrap:wrap;">
+                ${urlsList}
+              </div>
+
+              <div class="influence">
+                <div><b>Sentiment:</b> ${escapeHtml(inf.sentiment ?? "")}</div>
+                <div><b>Reasoning:</b> ${escapeHtml(inf.reasoning ?? "")}</div>
+              </div>
+            </div>
+          `;
+        } else {
+          // Если данных еще нет или пусто
+          contentHtml = `<div style="color:#777; text-align:center; padding: 10px;">Нет данных или загрузка...</div>`;
+        }
+
+        html += `
+          <div class="card">
+            <div class="cardHead">
+              <div style="font-weight:900;">${escapeHtml(t)}</div>
+            </div>
+            <div class="cardBody">
+              ${metaHtml}
+              ${contentHtml}
+            </div>
+          </div>
+        `;
+      }
+
+      newsEl.innerHTML = html;
+    }
+
+
+    function render() {
+      renderChips();
+      renderNews();
+      updateStats();
+    }
+
+    async function loadNews() {
+      setError(null);
+      if (!selectedTickers.length) return;
+
+      if (!ensureColabBridge()) {
+        setError("Нужен Google Colab: google.colab.kernel.invokeFunction недоступен.");
+        return;
+      }
+
+      btnLoad.disabled = true;
+      btnAdd.disabled = true;
+      btnClear.disabled = true;
+      setStatus("Загрузка…");
+
+      try {
+        const payload = {
+          tickers: selectedTickers,
+          // NEW: флаг для Python callback (включит/выключит отдельный вызов S3)
+          save_to_s3: !!(saveS3El && saveS3El.checked),
+        };
+
+        // args должен быть массивом, kwargs — объектом
+        const res = await google.colab.kernel.invokeFunction(CALLBACKNAME, [payload], {});
+        const parsed = parseColabInvokeResult(res);
+
+        if (parsed && parsed.error) throw new Error(String(parsed.error));
+
+        const results = (parsed && Array.isArray(parsed.results)) ? parsed.results : [];
+
+        resultsByTicker = {};
+        for (const r of results) {
+          const tick = String(r && r.ticker ? r.ticker : "").toUpperCase();
+          if (tick) resultsByTicker[tick] = r;
+        }
+
+        setStatus("Готово");
+        render();
+        setTimeout(() => setStatus(""), 1200);
+      } catch (e) {
+        setStatus("");
+        setError(e && e.message ? e.message : String(e));
+      } finally {
+        btnLoad.disabled = false;
+        btnAdd.disabled = false;
+        btnClear.disabled = false;
+      }
+    }
+
+    btnAdd.addEventListener("click", addTicker);
+    btnLoad.addEventListener("click", loadNews);
+    btnClear.addEventListener("click", clearAll);
+    input.addEventListener("keydown", (e) => { if (e.key === "Enter") addTicker(); });
+
+    render();
+  })();
+</script>

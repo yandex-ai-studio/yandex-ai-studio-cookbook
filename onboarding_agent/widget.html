@@ -1,0 +1,712 @@
+<div id="yc-agent-demo"
+    style="border:2px dashed #ccc;height:600px;position:relative;background:#fff;border-radius:8px;overflow:hidden;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif">
+    <p style="color:#999;text-align:center;padding-top:20px;margin:0">Yandex Cloud Documentation</p>
+
+    <div style="display:flex;justify-content:center;margin-top:14px;">
+        <img src="data:image/png;base64,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"
+            alt="Yandex Cloud" style="max-width:260px;width:60%;height:auto;display:block;">
+    </div>
+
+    <div id="ycw-root"></div>
+</div>
+
+
+<style>
+    .ycw-launcher {
+        position: absolute;
+        right: 20px;
+        bottom: 20px;
+        width: 60px;
+        height: 60px;
+        border: 0;
+        border-radius: 999px;
+        cursor: pointer;
+        background: #0b7bfb;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, .15);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10;
+        transition: transform .2s ease;
+    }
+
+    .ycw-launcher:hover {
+        transform: scale(1.05);
+    }
+
+    .ycw-window {
+        position: absolute;
+        right: 20px;
+        bottom: 90px;
+        width: 340px;
+        height: 460px;
+        background: #fff;
+        border-radius: 12px;
+        border: 1px solid #ddd;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, .2);
+        overflow: hidden;
+        display: none;
+        flex-direction: column;
+        z-index: 11;
+    }
+
+    .ycw-window[data-open="true"] {
+        display: flex;
+    }
+
+    .ycw-header {
+        background: linear-gradient(135deg, #f5f7fa 0, #ffffff 100%);
+        padding: 10px 12px;
+        border-bottom: 1px solid #e6e6e6;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+    }
+
+    .ycw-brand {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        min-width: 0;
+    }
+
+    .ycw-title {
+        font-size: 14px;
+        font-weight: 600;
+        color: #333;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .ycw-close {
+        border: 0;
+        background: transparent;
+        cursor: pointer;
+        font-size: 20px;
+        line-height: 1;
+        color: #999;
+        padding: 4px 6px;
+    }
+
+    .ycw-close:hover {
+        color: #666;
+    }
+
+    .ycw-messages {
+        flex: 1;
+        overflow-y: auto;
+        padding: 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        background: #fafafa;
+    }
+
+    .ycw-msg {
+        max-width: 100%;
+        font-size: 13px;
+        line-height: 1.5;
+        border-radius: 10px;
+        padding: 10px 12px;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
+        word-break: break-word;
+    }
+
+    .ycw-msg--bot {
+        background: #fff;
+        color: #333;
+        border-left: 3px solid #0b7bfb;
+    }
+
+    .ycw-msg--user {
+        background: #0b7bfb;
+        color: #fff;
+        margin-left: 44px;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, .1);
+    }
+
+    .ycw-msg--bot a {
+        color: #0b7bfb;
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+    .ycw-msg--bot a:hover {
+        text-decoration: underline;
+    }
+
+    .ycw-msg--bot h1,
+    .ycw-msg--bot h2,
+    .ycw-msg--bot h3,
+    .ycw-msg--bot h4,
+    .ycw-msg--bot h5,
+    .ycw-msg--bot h6 {
+        margin: 10px 0 6px;
+        font-weight: 600;
+        color: #0b7bfb;
+    }
+
+    .ycw-msg--bot h4 {
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: .04em;
+    }
+
+    .ycw-msg--bot h5 {
+        font-size: 12px;
+    }
+
+    .ycw-msg--bot h6 {
+        font-size: 11px;
+    }
+
+    .ycw-msg--bot ul {
+        margin: 8px 0;
+        padding-left: 20px;
+        list-style-type: disc;
+    }
+
+    .ycw-msg--bot li {
+        margin: 4px 0;
+    }
+
+    .ycw-msg--bot hr {
+        border: 0;
+        border-top: 1px solid #ddd;
+        margin: 12px 0;
+    }
+
+    .ycw-msg--bot strong {
+        font-weight: 600;
+        color: #0b7bfb;
+    }
+
+    .ycw-msg--bot em {
+        font-style: italic;
+        color: #666;
+    }
+
+    .ycw-msg--bot pre {
+        background: #f2f4f7;
+        color: #333;
+        padding: 10px 12px;
+        border-radius: 8px;
+        overflow-x: auto;
+        border-left: 3px solid #0b7bfb;
+        font-size: 12px;
+    }
+
+    .ycw-msg--bot code {
+        background: #f2f4f7;
+        color: #d24693;
+        padding: 1px 6px;
+        border-radius: 4px;
+        font-size: 11px;
+    }
+
+    .ycw-inputbar {
+        border-top: 1px solid #e6e6e6;
+        padding: 10px;
+        background: #fff;
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    .ycw-input {
+        flex: 1 1 180px;
+        padding: 9px 10px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 13px;
+        outline: none;
+    }
+
+    .ycw-input:focus {
+        border-color: #0b7bfb;
+    }
+
+    .ycw-send {
+        border: 0;
+        border-radius: 8px;
+        padding: 9px 12px;
+        background: #0b7bfb;
+        color: #fff;
+        cursor: pointer;
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    .ycw-send:hover {
+        background: #096de8;
+    }
+
+    .ycw-send:disabled {
+        opacity: .6;
+        cursor: not-allowed;
+    }
+
+    .ycw-save-wrap {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 12px;
+        color: #666;
+        user-select: none;
+    }
+
+    .ycw-loading {
+        background: #fff;
+        border-left: 3px solid #0b7bfb;
+    }
+
+    .ycw-loading__row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: #666;
+        font-size: 12px;
+        margin-bottom: 8px;
+    }
+
+    .ycw-spinner {
+        width: 12px;
+        height: 12px;
+        border: 2px solid #e6e6e6;
+        border-top: 2px solid #0b7bfb;
+        border-radius: 50%;
+        animation: ycwSpin 1s linear infinite;
+    }
+
+    @keyframes ycwSpin {
+        0% {
+            transform: rotate(0)
+        }
+
+        100% {
+            transform: rotate(360deg)
+        }
+    }
+
+    .ycw-progress {
+        height: 4px;
+        border-radius: 999px;
+        background: #e6e6e6;
+        overflow: hidden;
+    }
+
+    .ycw-progress__fill {
+        height: 100%;
+        width: 0%;
+        background: linear-gradient(90deg, #0b7bfb, #5282FF, #0b7bfb);
+        background-size: 200% 100%;
+        animation: ycwProgressAnim 2s ease-in-out infinite;
+        transition: width .25s ease;
+    }
+
+    @keyframes ycwProgressAnim {
+        0% {
+            background-position: 200% 0
+        }
+
+        100% {
+            background-position: -200% 0
+        }
+    }
+
+    .ycw-messages::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .ycw-messages::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+
+    .ycw-messages::-webkit-scrollbar-thumb {
+        background: #c1c1c1;
+        border-radius: 3px;
+    }
+
+    .ycw-messages::-webkit-scrollbar-thumb:hover {
+        background: #a8a8a8;
+    }
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.6/dist/purify.min.js"></script>
+<script>
+    (function () {
+        'use strict';
+
+        const TITLE = 'Yandex Cloud AI';
+        const GREETING = 'Привет! Это AI‑агент по документации Yandex Cloud. Задайте вопрос ниже.';
+
+        function detectEnv() {
+            const isColab = (typeof google !== 'undefined' && google.colab && google.colab.kernel);
+            const isClassic =
+                (typeof IPython !== 'undefined' &&
+                    IPython.notebook &&
+                    IPython.notebook.kernel &&
+                    typeof IPython.notebook.kernel.execute === 'function');
+            return { isColab, isClassic };
+        }
+
+        function normalizeSources(sources) {
+            if (!Array.isArray(sources)) return [];
+            return sources
+                .filter(s => s && typeof s === 'object')
+                .map(s => ({
+                    title: String(s.title || '').trim() || 'Источник',
+                    url: String(s.url || '').trim()
+                }))
+                .filter(s => !!s.url);
+        }
+
+        // -------- Markdown -> HTML (с поддержкой переносов) --------
+        function escapeHtml(s) {
+            return String(s)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
+        }
+
+        function renderMarkdown(md) {
+            const raw = String(md ?? "");
+
+            // marked: markdown -> html
+            const html = marked.parse(raw, {
+                gfm: true,
+                breaks: true,
+                mangle: false,
+                headerIds: false,
+            });
+
+            // DOMPurify: режем XSS, но оставляем ссылки/форматирование
+            const clean = DOMPurify.sanitize(html, {
+                USE_PROFILES: { html: true },
+                ADD_ATTR: ["target", "rel"],
+            });
+
+            // Гарантируем, что все ссылки открываются в новой вкладке
+            // (DOMPurify оставит атрибуты, но лучше проставить явно после sanitize)
+            const wrapper = document.createElement("div");
+            wrapper.innerHTML = clean;
+            wrapper.querySelectorAll("a").forEach(a => {
+                a.target = "_blank";
+                a.rel = "noopener noreferrer";
+            });
+            return wrapper.innerHTML;
+        }
+
+
+        // -------- parsing result from Python (JSON or python-repr) --------
+        function tryParseResult(data) {
+            if (data && typeof data === "object") return data;
+
+            const s = String(data ?? "").trim();
+            if (!s) return { answer: "", sources: [] };
+
+            // 1) JSON
+            try {
+                const obj = JSON.parse(s);
+
+                // если это строка, которая сама содержит JSON — парсим ещё раз
+                if (typeof obj === "string") {
+                    try { return JSON.parse(obj); } catch (e) { return { obj, sources: [] }; }
+                }
+                return obj;
+            } catch (e) { }
+
+            // 2) python dict repr fallback (как у тебя)
+            try {
+                let t = s
+                    .replace(/\bNone\b/g, "null")
+                    .replace(/\bTrue\b/g, "true")
+                    .replace(/\bFalse\b/g, "false")
+                    .replace(/'/g, '"');
+                return JSON.parse(t);
+            } catch (e) { }
+
+            return { answer: s, sources: [] };
+        }
+
+
+        // -------- JS -> Python --------
+        async function callPythonAgent(payload) {
+            const env = detectEnv();
+
+            if (typeof payload === 'string') {
+                payload = { query: payload, save_to_s3: false };
+            }
+            payload = payload || {};
+            payload.query = String(payload.query || '').trim();
+            payload.save_to_s3 = !!payload.save_to_s3;
+
+            if (!payload.query) throw new Error('Пустой запрос.');
+
+            if (env.isColab) {
+                const name = 'yc_agent_callback';
+
+                const timeoutMs = 60000;
+                const timeout = new Promise((_, reject) => {
+                    setTimeout(() => reject(new Error('Timeout 60s')), timeoutMs);
+                });
+
+                const call = async () => {
+                    // ВАЖНО: args должны быть массивом
+                    const res = await google.colab.kernel.invokeFunction(name, [payload], {});
+                    const data = (res && res.data && (res.data['application/json'] ?? res.data['text/plain'])) ?? res;
+                    return tryParseResult(data);
+                };
+
+                return await Promise.race([call(), timeout]);
+            }
+
+            if (env.isClassic) {
+                const callbackId = 'ycwcb_' + Date.now() + '_' + Math.random().toString(36).slice(2);
+                const payloadJson = JSON.stringify(payload);
+                const payloadB64 = btoa(unescape(encodeURIComponent(payloadJson)));
+
+                const py = `
+import json, base64
+from IPython.display import Javascript, display
+
+def ycw_emit(obj):
+    js = "if(window.${callbackId}) window.${callbackId}(" + json.dumps(obj, ensure_ascii=False, default=str) + ");"
+    display(Javascript(js))
+
+try:
+    if 'agent_callback' not in globals():
+        ycw_emit({"answer": "agent_callback не найден. Зарегистрируйте callback в Python.", "sources": []})
+    else:
+        payload_json = base64.b64decode("${payloadB64}").decode("utf-8")
+        payload = json.loads(payload_json)
+        result = agent_callback(payload)
+        # может вернуться dict или строка; отдадим как есть
+        ycw_emit(result)
+except Exception as e:
+    ycw_emit({"answer": str(e), "sources": []})
+`;
+
+                return new Promise((resolve, reject) => {
+                    let done = false;
+                    const timer = setTimeout(() => {
+                        if (done) return;
+                        done = true;
+                        try { delete window[callbackId]; } catch (e) { }
+                        reject(new Error('Timeout 60s'));
+                    }, 60000);
+
+                    window[callbackId] = (result) => {
+                        if (done) return;
+                        done = true;
+                        clearTimeout(timer);
+                        try { delete window[callbackId]; } catch (e) { }
+                        resolve(tryParseResult(result));
+                    };
+
+                    try {
+                        IPython.notebook.kernel.execute(py, { iopub: { output: () => { } }, shell: { reply: () => { } } }, { silent: false });
+                    } catch (e) {
+                        clearTimeout(timer);
+                        try { delete window[callbackId]; } catch (e2) { }
+                        reject(e);
+                    }
+                });
+            }
+
+            throw new Error('Среда не поддерживается: нужен Colab или Classic Jupyter Notebook.');
+        }
+
+        // -------- UI --------
+        function createWidget(root) {
+            root.innerHTML = `
+        <button class="ycw-launcher" type="button" aria-label="Open chat">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 2H4C2.9 2 2 2.9 2 4V22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2Z" fill="white"/>
+          </svg>
+        </button>
+
+        <div class="ycw-window" data-open="false" role="dialog" aria-label="Yandex Cloud chat">
+          <div class="ycw-header">
+            <div class="ycw-brand">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="11" fill="#5282FF" opacity="0.2"/>
+                <path d="M12 3C7.03 3 3 7.03 3 12C3 16.97 7.03 21 12 21C16.97 21 21 16.97 21 12C21 7.03 16.97 3 12 3ZM12 19C8.13 19 5 15.87 5 12C5 8.13 8.13 5 12 5C15.87 5 19 8.13 19 12C19 15.87 15.87 19 12 19Z" fill="#5282FF"/>
+                <path d="M14 8.5L10 12L14 15.5V8.5Z" fill="#5282FF"/>
+              </svg>
+              <div class="ycw-title">${TITLE}</div>
+            </div>
+            <button class="ycw-close" type="button" aria-label="Close">×</button>
+          </div>
+
+          <div class="ycw-messages"></div>
+
+          <div class="ycw-inputbar">
+            <input class="ycw-input" type="text" placeholder="Напишите вопрос..." autocomplete="off"/>
+            <label class="ycw-save-wrap" title="Сохранить результат запроса в Object Storage (S3)">
+              <input class="ycw-save-s3" type="checkbox"/>
+              Save to S3
+            </label>
+            <button class="ycw-send" type="button">Send</button>
+          </div>
+        </div>
+      `;
+
+            const launcher = root.querySelector('.ycw-launcher');
+            const windowEl = root.querySelector('.ycw-window');
+            const closeBtn = root.querySelector('.ycw-close');
+            const messagesEl = root.querySelector('.ycw-messages');
+            const inputEl = root.querySelector('.ycw-input');
+            const sendBtn = root.querySelector('.ycw-send');
+            const saveS3El = root.querySelector('.ycw-save-s3');
+
+            let loadingEl = null;
+            let progressTimer = null;
+
+            function scrollBottom() {
+                messagesEl.scrollTop = messagesEl.scrollHeight;
+            }
+
+            function addMessage(text, who) {
+                const div = document.createElement('div');
+                div.className = 'ycw-msg ' + (who === 'user' ? 'ycw-msg--user' : 'ycw-msg--bot');
+
+                if (who === 'bot') div.innerHTML = renderMarkdown(text);
+                else div.textContent = String(text);
+
+                messagesEl.appendChild(div);
+                scrollBottom();
+                return div;
+            }
+
+            function setOpen(open) {
+                windowEl.dataset.open = open ? 'true' : 'false';
+                if (open) setTimeout(() => inputEl.focus(), 0);
+            }
+
+            function setLoading(on) {
+                if (!on) {
+                    if (progressTimer) clearInterval(progressTimer);
+                    progressTimer = null;
+                    if (loadingEl) loadingEl.remove();
+                    loadingEl = null;
+                    return;
+                }
+
+                loadingEl = document.createElement('div');
+                loadingEl.className = 'ycw-msg ycw-loading ycw-msg--bot';
+                loadingEl.innerHTML = `
+          <div class="ycw-loading__row">
+            <span class="ycw-spinner" aria-hidden="true"></span>
+            <span class="ycw-loading__text">Ищу информацию…</span>
+          </div>
+          <div class="ycw-progress"><div class="ycw-progress__fill"></div></div>
+        `;
+                messagesEl.appendChild(loadingEl);
+                scrollBottom();
+
+                const steps = [
+                    { p: 20, t: 'Ищу информацию…' },
+                    { p: 45, t: 'Читаю результаты…' },
+                    { p: 65, t: 'Формирую ответ…' },
+                    { p: 85, t: 'Почти готово…' },
+                    { p: 95, t: 'Готовлю ответ' },
+                ];
+                let i = 0;
+
+                const fill = loadingEl.querySelector('.ycw-progress__fill');
+                const txt = loadingEl.querySelector('.ycw-loading__text');
+
+                progressTimer = setInterval(() => {
+                    const step = steps[Math.min(i, steps.length - 1)];
+                    if (fill) fill.style.width = step.p + '%';
+                    if (txt) txt.textContent = step.t;
+                    i += 1;
+                    if (i > steps.length + 2) {
+                        clearInterval(progressTimer);
+                        progressTimer = null;
+                    }
+                }, 600);
+            }
+
+            function buildAnswerMarkdown(result) {
+                const defaultText = "Пустой ответ. Уточните запрос или попробуйте ещё раз.";
+
+                if (typeof result === "string") {
+                    const s = result.trim();
+                    return s ? s : defaultText;
+                }
+
+                const answer = (result && result.answer != null) ? String(result.answer).trim() : "";
+                const sources = Array.isArray(result?.sources) ? result.sources : [];
+
+                const links = sources
+                    .map(s => {
+                        const title = String(s?.title ?? "Источник").trim();
+                        const url = String(s?.url ?? "").trim();
+                        return url ? `[${title}](${url})` : null;
+                    })
+                    .filter(Boolean);
+
+                let md = answer || defaultText;
+                if (links.length) md += `\n\nПодробнее: ${links.join(", ")}`;
+
+                return md.trim();
+            }
+
+
+            async function send() {
+                const q = inputEl.value.trim();
+                if (!q || sendBtn.disabled) return;
+
+                addMessage(q, 'user');
+                inputEl.value = '';
+
+                sendBtn.disabled = true;
+                setLoading(true);
+
+                try {
+                    const payload = { query: q, save_to_s3: !!(saveS3El && saveS3El.checked) };
+                    const raw = await callPythonAgent(payload);
+                    const resultObj = tryParseResult(raw);
+                    const md = buildAnswerMarkdown(resultObj);
+                    addMessage(md, "bot");
+
+                    setLoading(false);
+
+                } catch (e) {
+                    setLoading(false);
+                    addMessage(e && e.message ? e.message : String(e), 'bot');
+                } finally {
+                    sendBtn.disabled = false;
+                    inputEl.focus();
+                }
+            }
+
+            launcher.addEventListener('click', () => setOpen(windowEl.dataset.open !== 'true'));
+            closeBtn.addEventListener('click', () => setOpen(false));
+            sendBtn.addEventListener('click', send);
+            inputEl.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') send();
+                if (e.key === 'Escape') setOpen(false);
+            });
+
+            const env = detectEnv();
+            let extra = '';
+            if (!env.isColab && !env.isClassic) extra = '\n\n(Виджет работает в Colab или Classic Jupyter Notebook.)';
+            else if (env.isColab) extra = '\n\n(Подключено через Colab callback.)';
+            else extra = '\n\n(Подключено через IPython.notebook.kernel.execute.)';
+
+            addMessage(GREETING + extra, 'bot');
+        }
+
+        const root = document.getElementById('ycw-root');
+        if (root) createWidget(root);
+        else console.error('ycw-root not found');
+    })();
+</script>
+</div>

@@ -1,0 +1,40 @@
+name: Update registry.yaml from examples metadata
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  update-registry:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: pip install pyyaml
+
+      - name: Generate registry.yaml
+        run: python .github/scripts/generate_registry.py
+
+      - name: Commit and push changes
+        run: |
+          if git status --porcelain | grep -q "registry.yaml"; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add registry.yaml
+            git commit -m "chore: update registry.yaml from metadata"
+            git push
+          fi
+
