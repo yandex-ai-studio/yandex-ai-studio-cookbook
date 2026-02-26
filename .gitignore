@@ -1,2 +1,25 @@
 .env
 cookbooks_env/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# IDEs
+.idea/
+.vscode/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+
+# Notebooks
+.ipynb_checkpoints/
