@@ -1,21 +1,4 @@
 examples:
-- title: Yandex Cloud Onboarding Agent
-  author: partners
-  owner_team: ml-academy-ai
-  created_at: 2025-12-19
-  last_reviewed: 2026-02-26
-  tags:
-  - ai-studio
-  - websearch
-  - agents
-  status: published
-  related_docs:
-  - https://yandex.cloud/ru/docs/ai-studio/concepts/
-  - https://yandex.cloud/ru/docs/ai-studio/concepts/agents/tools/websearch
-  - https://yandex.cloud/ru/docs/storage/
-  - https://yandex.cloud/ru/docs/iam/concepts/access-control/roles
-  id: onboarding_agent
-  path: onboarding_agent
 - title: MosEx News Monitoring Agent
   author: partners
   owner_team: ml-academy-ai
@@ -31,5 +14,19 @@ examples:
   - https://yandex.cloud/ru/docs/ai-studio/concepts/agents/tools/websearch
   - https://yandex.cloud/ru/docs/storage/
   - https://yandex.cloud/ru/docs/iam/concepts/access-control/roles
-  id: stock_agent
-  path: stock_agent
+
+- title: Yandex Cloud Onboarding Agent
+  author: partners
+  owner_team: ml-academy-ai
+  created_at: 2025-12-19
+  last_reviewed: 2026-02-26
+  tags:
+  - ai-studio
+  - websearch
+  - agents
+  status: published
+  related_docs:
+  - https://yandex.cloud/ru/docs/ai-studio/concepts/
+  - https://yandex.cloud/ru/docs/ai-studio/concepts/agents/tools/websearch
+  - https://yandex.cloud/ru/docs/storage/
+  - https://yandex.cloud/ru/docs/iam/concepts/access-control/roles

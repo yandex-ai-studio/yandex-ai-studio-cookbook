@@ -25,17 +25,9 @@ def build_registry(entries_paths: List[pathlib.Path], repo_root: pathlib.Path) -
 
     for metadata_path in entries_paths:
         example_dir = metadata_path.parent.parent
-        example_id = example_dir.name
 
         with metadata_path.open("r", encoding="utf-8") as f:
             data = yaml.safe_load(f) or {}
-
-        # Enrich with some standard fields
-        if "id" not in data:
-            data["id"] = example_id
-        if "path" not in data:
-            # Path relative to repo root (e.g. "onboarding_agent")
-            data["path"] = str(example_dir.relative_to(repo_root))
 
         examples.append(data)
 
@@ -53,12 +45,17 @@ def write_registry(registry: Dict[str, Any], output_path: pathlib.Path) -> None:
     lines = raw.splitlines()
 
     pretty_lines: List[str] = []
-    for i, line in enumerate(lines):
-        pretty_lines.append(line)
+    seen_item = False
 
-        # Insert a blank line between top-level list items under "examples:"
-        if line.startswith("- ") and i + 1 < len(lines) and lines[i + 1].startswith("- "):
-            pretty_lines.append("")
+    for line in lines:
+        # Top-level list item (our examples entries)
+        if line.startswith("- "):
+            if seen_item:
+                # Blank line before every item except the first
+                pretty_lines.append("")
+            seen_item = True
+
+        pretty_lines.append(line)
 
     text = "\n".join(pretty_lines) + "\n"
 
