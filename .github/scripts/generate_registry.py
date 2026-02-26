@@ -46,9 +46,24 @@ def build_registry(entries_paths: List[pathlib.Path], repo_root: pathlib.Path) -
 
 
 def write_registry(registry: Dict[str, Any], output_path: pathlib.Path) -> None:
+    """Write registry.yaml with a blank line between examples for readability."""
     output_path.parent.mkdir(parents=True, exist_ok=True)
+
+    raw = yaml.safe_dump(registry, sort_keys=False, allow_unicode=True)
+    lines = raw.splitlines()
+
+    pretty_lines: List[str] = []
+    for i, line in enumerate(lines):
+        pretty_lines.append(line)
+
+        # Insert a blank line between top-level list items under "examples:"
+        if line.startswith("- ") and i + 1 < len(lines) and lines[i + 1].startswith("- "):
+            pretty_lines.append("")
+
+    text = "\n".join(pretty_lines) + "\n"
+
     with output_path.open("w", encoding="utf-8") as f:
-        yaml.safe_dump(registry, f, sort_keys=False, allow_unicode=True)
+        f.write(text)
 
 
 def main() -> None:
