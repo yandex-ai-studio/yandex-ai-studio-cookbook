@@ -4,19 +4,15 @@ from typing import Any, Dict, List
 import yaml
 
 
-def find_metadata_files(examples_root: pathlib.Path) -> List[pathlib.Path]:
-    """Find all metadata.yaml files under examples/*/metadata/metadata.yaml."""
+def find_metadata_files(search_root: pathlib.Path) -> List[pathlib.Path]:
+    """Find all metadata.yaml files under <repo_root>/*/metadata/metadata.yaml."""
     paths: List[pathlib.Path] = []
-    if not examples_root.exists():
+    if not search_root.exists():
         return paths
 
-    for metadata_path in examples_root.rglob("metadata.yaml"):
-        # We are interested only in .../examples/<example_name>/metadata/metadata.yaml
+    for metadata_path in search_root.rglob("metadata.yaml"):
+        # We are interested only in <repo_root>/<example_name>/metadata/metadata.yaml
         if metadata_path.parent.name != "metadata":
-            continue
-        # Ensure there is an example directory above
-        if metadata_path.parent.parent == examples_root:
-            # examples/metadata/metadata.yaml — skip such misplaced files
             continue
         paths.append(metadata_path)
 
@@ -56,10 +52,11 @@ def write_registry(registry: Dict[str, Any], output_path: pathlib.Path) -> None:
 
 
 def main() -> None:
+    # This script lives in <repo_root>/.github/scripts/generate_registry.py,
+    # so the repository root is two levels above this file.
     repo_root = pathlib.Path(__file__).resolve().parents[2]
-    examples_root = repo_root / "examples"
 
-    metadata_files = find_metadata_files(examples_root)
+    metadata_files = find_metadata_files(repo_root)
     registry = build_registry(metadata_files, repo_root)
 
     output_path = repo_root / "registry.yaml"
