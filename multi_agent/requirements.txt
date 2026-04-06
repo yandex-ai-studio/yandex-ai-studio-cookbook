@@ -1,0 +1,6 @@
+openai
+python-dotenv
+langgraph
+pydantic
+curl_cffi
+beautifulsoup4
