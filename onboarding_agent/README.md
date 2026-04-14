@@ -73,7 +73,7 @@
 
 ## Дополнительные Ресурсы
 
-* 🔗 **AI Studio YandexGPT**: [Обзор и документация](https://yandex.cloud/ru/docs/ai-studio/quickstart/yandexgpt)
+* 🔗 **AI Studio**: [Обзор и документация](https://yandex.cloud/ru/docs/ai-studio/quickstart)
 * 🔗 **OpenAI-совместимое API**: [Документация по использованию SDK](https://yandex.cloud/ru/docs/foundation-models/concepts/openai-compatibility)
 * 🔗 **Object Storage**: [Работа с S3-совместимым хранилищем](https://cloud.yandex.ru/docs/storage/s3/)
 * 🔗 **Примеры кода**: [Репозиторий с примерами Yandex AI Studio API](https://github.com/yandex-ai-studio/yandex-ai-studio-api-examples)
