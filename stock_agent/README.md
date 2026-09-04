@@ -3,6 +3,8 @@
 
 ![Онбординг-агент Yandex Cloud](../stock_agent/images/stock_agent_ydex.png)
 
+> 🚀 **[Повторить с AI Studio →](https://aistudio.yandex.ru/platform?utm_source=github&utm_medium=owned&utm_campaign=t:info;gl:lgen&utm_content=cookbook_stock_agent)**
+
 ---
 
 ## Содержание
