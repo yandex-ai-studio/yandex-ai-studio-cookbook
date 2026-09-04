@@ -1,6 +1,8 @@
 # Агент пакетного мониторинга конкурентов с оркестрацией
 **Агент**, который обходит N конкурентов через *WebSearch tool Responses API*, собирает новости и изменения цен, генерирует сводный дайджест: обрабатывает конкурентов параллельно, логирует каждый шаг и визуализирует результаты через *Code Interpreter*. Весь пайплайн: параллельный сбор данных с retry, трейсинг, агрегация в дайджест.
 
+> 🚀 **[Повторить с AI Studio →](https://aistudio.yandex.ru/platform?utm_source=github&utm_medium=owned&utm_campaign=t:info;gl:lgen&utm_content=cookbook_competitor_monitoring)**
+
 ---
 
 ## Содержание
