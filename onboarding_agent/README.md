@@ -3,6 +3,8 @@
 
 ![Онбординг-агент Yandex Cloud](../onboarding_agent/images/onboarding_agent.png)
 
+> 🚀 **[Повторить с AI Studio →](https://aistudio.yandex.ru/platform?utm_source=github&utm_medium=owned&utm_campaign=t:info;gl:lgen&utm_content=cookbook_onboarding_agent)**
+
 ---
 
 # Содержание
